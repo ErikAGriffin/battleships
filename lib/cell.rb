@@ -1,11 +1,15 @@
 module Cell
 
   def y
-    @y ||= 'A'
+    @y ||= 0
   end
 
   def x
-    @x ||= 1
+    @x ||= 0
+  end
+
+  def coordinate
+    [x, y]
   end
 
 end
