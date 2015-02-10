@@ -45,9 +45,8 @@ describe Board do
     origin = [1, :A]
     board.place(ship, origin)
     expect(board.cell(1, :A)).to eq ship
-    #expect(board.cell(2, :A)).to eq ship
-    #expect(board.cell(1, :B)).to eq :SEA
-
+    expect(board.cell(2, :A)).to eq ship
+    expect(board.cell(1, :B)).to eq :SEA
   end
 
 

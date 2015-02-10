@@ -19,6 +19,9 @@ class Board
     if ship.portrait?
       y = origin[1]
       @y_row.index(y) + 1 >= ship.size
+    else
+      x = origin[0]
+      @x_row.index(@x_row.last) - @x_row.index(x) + 1 >= ship.size 
     end
   end
 
@@ -34,7 +37,7 @@ class Board
   end
 
   def place(ship, origin)
-    #return if !ship_in_bounds?(ship, origin)
+    return if !ship_in_bounds?(ship, origin)
 
     x = origin[0]
     y = origin[1]
