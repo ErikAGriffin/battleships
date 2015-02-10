@@ -40,9 +40,6 @@ describe Board do
     expect(board.cell(2, :A)).to eq :SEA
   end
 
-  # it 'raises an error when trying to place a ship out of bounds' do
-  # end
-
 
 
 end

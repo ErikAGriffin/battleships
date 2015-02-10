@@ -5,8 +5,8 @@ class Board
   def initialize
     @grid = {A: {1 => :SEA, 2=> :SEA},
              B: {1 => :SEA, 2=> :SEA}}
-    @x_cells = [*1..2]
-    @y_cells = [*:A..:B]
+    @x_row = [*1..2]
+    @y_row = [*:A..:B]
   end
 
   def cell(x, y)
@@ -15,37 +15,33 @@ class Board
     end
   end
 
-  def place(ship, origin)
-    if !ship_in_bounds?(ship, origin)
-      return
+  def ship_in_bounds?(ship, origin)
+    if ship.portrait?
+      y = origin[1]
+      @y_row.index(y) + 1 >= ship.size
     end
+  end
+
+  def next_ship_cell(coord)
+    if @y_row.include? coord
+      @y_row[@y_row.index(coord)-1]
+    end
+  end
+
+  def place(ship, origin)
+    return if !ship_in_bounds?(ship, origin)
 
     x = origin[0]
     y = origin[1]
 
     size = ship.size - 1
-
+    @grid[y][x] = ship
     if ship.portrait?
-      @grid[y][x] = ship
       size.times do
         y = next_ship_cell(y)
         @grid[y][x] = ship
-      end
-    end
-  end
+      end # size.times
+    end # if
 
-  def ship_in_bounds?(ship, origin)
-    if ship.portrait?
-      y = origin[1]
-      @y_cells.index(y) + 1 >= ship.size
-    end
   end
-
-  def next_ship_cell(coord)
-    if @y_cells.include? coord
-      index = @y_cells.index(coord)-1
-      @y_cells[index]
-    end
-  end
-
 end
