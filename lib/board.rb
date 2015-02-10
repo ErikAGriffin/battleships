@@ -11,8 +11,6 @@ class Board
 
   def cell(x,y)
     # It may be fine to return nil
-    raise("Out of bounds") if !@x_cells.include?(x)
-    raise("Out of bounds") if !@y_cells.include?(y)
     self.grid[y][x]
   end
 
@@ -24,6 +22,7 @@ class Board
     size = ship.size -1
 
     if ship.orientation == 'portrait'
+      check_ship_bounds(ship,origin)
       # Set ship in origin
       @grid[y][x] = ship
       size.times do
@@ -31,6 +30,21 @@ class Board
         @grid[y][x] = ship
       end
     end
+  end
+
+  def check_ship_bounds(ship,origin)
+
+    x = origin[0]
+    y = origin[1]
+    size = ship.size-1
+
+    if ship.orientation == 'portrait'
+        size.times do
+          y = next_ship_cell(y)
+        end
+    end
+    cell(x,y)
+
   end
 
   def next_ship_cell(coord)

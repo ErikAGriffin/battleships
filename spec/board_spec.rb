@@ -15,24 +15,37 @@ describe Board do
     expect(board.cell(x,y)).to eq :SEA
   end
 
-  it "returns out of bounds error when passed an incorrect coordinate" do
+  it "returns nil when passed an incorrect coordinate" do
     x = 3
     y = :A
-    expect{board.cell(x,y)}.to raise_error("Out of bounds")
+    expect(board.cell(x,y)).to eq nil
     x = 1
     y = :C
-    expect{board.cell(x,y)}.to raise_error("Out of bounds")
+    expect(board.cell(x,y)).to eq nil
   end
 
   it "a ship can be placed within its grid" do
     ship = double :ship, size: 2, orientation: 'portrait'
-
     origin = [2, :B]
     board.place(ship, origin)
     expect(board.cell(2, :B)).to eq ship
     expect(board.cell(2, :A)).to eq ship
     expect(board.cell(1, :A)).to eq :SEA
   end
+
+  it 'a ship will not place if its size puts it outsize the bounds' do
+    ship = double :ship, size: 2, orientation: 'portrait'
+    origin = [2, :A]
+    board.place(ship, origin)
+    expect(board.cell(2, :A)).to eq :SEA
+  end
+
+  it 'raises an error when trying to place a ship out of bounds' do
+
+
+
+  end
+
 
 
 end
