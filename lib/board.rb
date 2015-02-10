@@ -10,8 +10,9 @@ class Board
   end
 
   def cell(x,y)
-    # It may be fine to return nil
-    self.grid[y][x]
+    if self.grid[y]
+      grid[y][x]
+    end
   end
 
   def place(ship, origin)
@@ -22,7 +23,7 @@ class Board
     size = ship.size -1
 
     if ship.orientation == 'portrait'
-      check_ship_bounds(ship,origin)
+      ship_in_bounds?(ship,origin)
       # Set ship in origin
       @grid[y][x] = ship
       size.times do
@@ -32,7 +33,7 @@ class Board
     end
   end
 
-  def check_ship_bounds(ship,origin)
+  def ship_in_bounds?(ship,origin)
 
     x = origin[0]
     y = origin[1]
