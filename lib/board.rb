@@ -9,11 +9,21 @@ class Board
     @y_row = [*:A..:B]
   end
 
+  def cell(origin)
+    x = origin[0]
+    y = origin[1]
+    if self.grid[y]
+      grid[y][x]
+    end
+  end
+
   def cell(x, y)
     if self.grid[y]
       grid[y][x]
     end
   end
+
+
 
   def ship_in_bounds?(ship, origin)
     if ship.portrait?

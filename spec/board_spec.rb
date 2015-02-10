@@ -33,7 +33,7 @@ describe Board do
     expect(board.cell(1, :A)).to eq :SEA
   end
 
-  it 'a portrait ship will not place if its size puts it outsize the bounds' do
+  it 'a portrait ship will not place if its size puts it outside the bounds' do
     ship = double :ship, size: 2, portrait?: true
     origin = [2, :A]
     board.place(ship, origin)
@@ -49,6 +49,12 @@ describe Board do
     expect(board.cell(1, :B)).to eq :SEA
   end
 
+  it 'a landscape ship will not place if its size puts it outside the bounds' do
+    ship = double :ship, size: 2,  portrait?: false
+    origin = [2, :B]
+    board.place(ship, origin)
+    expect(board.cell(2, :B)).to eq :SEA
+  end
 
 
 end
