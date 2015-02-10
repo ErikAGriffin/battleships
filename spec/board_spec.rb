@@ -25,12 +25,12 @@ describe Board do
   end
 
   it "a ship can be placed within its grid" do
-    ship = double :ship, size: 2
-    x = 2
-    y = :B
-    board.place(ship, x, y)
-    expect(board.cell(x, y)).to eq ship
-    expect(board.cell(x, :A)).to eq ship
+    ship = double :ship, size: 2, orientation: 'portrait'
+
+    origin = [2, :B]
+    board.place(ship, origin)
+    expect(board.cell(2, :B)).to eq ship
+    expect(board.cell(2, :A)).to eq ship
     expect(board.cell(1, :A)).to eq :SEA
   end
 

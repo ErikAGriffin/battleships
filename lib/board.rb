@@ -16,9 +16,27 @@ class Board
     self.grid[y][x]
   end
 
-  def place(ship, x, y)
-    size = ship.size
-    ship
+  def place(ship, origin)
+
+    x = origin[0]
+    y = origin[1]
+
+    size = ship.size -1
+
+    if ship.orientation == 'portrait'
+      # Set ship in origin
+      @grid[y][x] = ship
+      size.times do
+        y = next_ship_cell(y)
+        @grid[y][x] = ship
+      end
+    end
+  end
+
+  def next_ship_cell(coord)
+    if @y_cells.include? coord
+      @y_cells[@y_cells.index(coord)-1]
+    end
   end
 
 end
