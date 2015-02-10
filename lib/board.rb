@@ -9,22 +9,23 @@ class Board
     @y_cells = [*:A..:B]
   end
 
-  def cell(x,y)
+  def cell(x, y)
     if self.grid[y]
       grid[y][x]
     end
   end
 
   def place(ship, origin)
+    if !ship_in_bounds?(ship, origin)
+      return
+    end
 
     x = origin[0]
     y = origin[1]
 
-    size = ship.size -1
+    size = ship.size - 1
 
-    if ship.orientation == 'portrait'
-      ship_in_bounds?(ship,origin)
-      # Set ship in origin
+    if ship.portrait?
       @grid[y][x] = ship
       size.times do
         y = next_ship_cell(y)
@@ -33,24 +34,17 @@ class Board
     end
   end
 
-  def ship_in_bounds?(ship,origin)
-
-    x = origin[0]
-    y = origin[1]
-    size = ship.size-1
-
-    if ship.orientation == 'portrait'
-        size.times do
-          y = next_ship_cell(y)
-        end
+  def ship_in_bounds?(ship, origin)
+    if ship.portrait?
+      y = origin[1]
+      @y_cells.index(y) + 1 >= ship.size
     end
-    cell(x,y)
-
   end
 
   def next_ship_cell(coord)
     if @y_cells.include? coord
-      @y_cells[@y_cells.index(coord)-1]
+      index = @y_cells.index(coord)-1
+      @y_cells[index]
     end
   end
 
