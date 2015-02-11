@@ -14,11 +14,21 @@ describe 'Game' do
     expect(game.p2_ships.count).to eq 5
   end
 
-  it 'can receive shots from players' do
+  it 'knows whose turn it is' do
+    expect(game.turn).to eq game.player1
+  end
 
-    FAIL
+  it 'should receive shots from the player whose turn it is' do
+
+
+
 
   end
+
+
+
+
+
 
 
 end

@@ -3,12 +3,8 @@ class Board
   attr_reader :grid
 
   def initialize
-    #@grid = {A: {1 => :SEA, 2=> :SEA},
-     #        B: {1 => :SEA, 2=> :SEA}}
-
     @x_row = [*1..2]
     @y_row = [*:A..:B]
-
     @grid = make_grid
   end
 

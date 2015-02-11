@@ -1,7 +1,7 @@
 class Player
 
 
-  def initialize(home_board: Board.new)
+  def initialize(home_board: "No Board", game: "No Game")
     @home_board = home_board
   end
 
@@ -14,7 +14,7 @@ class Player
   end
 
   def shoot(origin)
-
+    game.shoot(origin)
   end
 
   # I don't believe other classes need access to these
