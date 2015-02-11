@@ -27,14 +27,23 @@ class Board
 
   def ship_in_bounds?(ship, origin)
     if ship.portrait?
-      y = origin[1]
-      @y_row.index(y) + 1 >= ship.size
+      portrait_ship_in_bounds?(ship,origin)
     else
-      x = origin[0]
-      @x_row.index(@x_row.last) - @x_row.index(x) + 1 >= ship.size
+       landscape_ship_in_bounds?(ship,origin)
     end
   end
 
+  def portrait_ship_in_bounds?(ship,origin)
+      y = origin[1]
+      @y_row.index(y) + 1 >= ship.size
+  end
+
+  def landscape_ship_in_bounds?(ship,origin)
+      x = origin[0]
+      @x_row.index(@x_row.last) - @x_row.index(x) + 1 >= ship.size
+  end
+
+  # !! ** !!
   # Need to add edge case, adding ship where another
   # Ship already resides
 
@@ -67,4 +76,7 @@ class Board
     end # if
     true # Returns true if ship was placed
   end
+
+
+
 end

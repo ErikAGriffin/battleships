@@ -9,6 +9,7 @@ class Game
   # I believe I am combining what I normally call 'driver'
   # and the class the controls game logic.
   # so perhaps separate into the game logic and driver classes.
+  # The driver class would essentially prepare the entire game.
 
   def new_game
     @p1_board = Board.new
@@ -23,6 +24,14 @@ class Game
 
   def turn
     @turn ||= @player1
+  end
+
+  def opponent
+    @turn == @player1 ? @player2 : @player1
+  end
+
+  def shoot(origin)
+    opponent.home_board.hit?
   end
 
   # Class Methods

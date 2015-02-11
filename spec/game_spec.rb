@@ -20,8 +20,16 @@ describe 'Game' do
 
   it 'should receive shots from the player whose turn it is' do
 
+    # !! ** !!
+    # This test isn't working. Split out Game
 
+    player = double :player
+    origin = [1, :B]
+    allow(player).to receive(:shoot).with(origin).and_return{game.shoot(origin)}
 
+    expect(game).to receive(:shoot).with(origin)
+
+    player.shoot(origin)
 
   end
 
