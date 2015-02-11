@@ -2,7 +2,7 @@ class Ship
 
   attr_reader :size, :hits
 
-  def initialize(size = 3)
+  def initialize(size = 1)
     @size = size
     @hits = 0
     @placed = false

@@ -36,7 +36,7 @@ class Board
   end
 
   def place(ship, origin)
-    return if !ship_in_bounds?(ship, origin)
+    return false if !ship_in_bounds?(ship, origin)
     x = origin[0]
     y = origin[1]
 
@@ -53,6 +53,6 @@ class Board
         @grid[y][x] = ship
       end # size.times do
     end # if
-
+    true # Returns true if ship was placed
   end
 end

@@ -37,7 +37,7 @@ describe 'Ship' do
   describe 'behavior' do
 
     it 'has a size' do
-      expect(ship.size).to eq 3
+      expect(ship.size).to eq 1
     end
 
     it 'knows if its been placed' do
