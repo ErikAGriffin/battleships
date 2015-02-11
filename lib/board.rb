@@ -3,11 +3,24 @@ class Board
   attr_reader :grid
 
   def initialize
-    @grid = {A: {1 => :SEA, 2=> :SEA},
-             B: {1 => :SEA, 2=> :SEA}}
+    #@grid = {A: {1 => :SEA, 2=> :SEA},
+     #        B: {1 => :SEA, 2=> :SEA}}
 
     @x_row = [*1..2]
     @y_row = [*:A..:B]
+
+    @grid = make_grid
+  end
+
+  def make_grid
+    board_hash = {}
+    @y_row.each do |y|
+      board_hash.store(y,{})
+      @x_row.each do |x|
+        board_hash[y].store(x,:SEA)
+      end
+    end
+    board_hash
   end
 
   def cell(x, y)

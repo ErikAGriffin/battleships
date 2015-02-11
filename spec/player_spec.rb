@@ -7,13 +7,17 @@ describe 'Player' do
   let(:player) {Player.new(home_board: homeboard, target_board: targetboard)}
   let(:ship) {double :ship}
 
+  it 'has its home board' do
+    expect(player.home_board).to eq homeboard
+  end
+
+  it 'has a target board' do
+    expect(player.target_board).to eq targetboard
+  end
+
   it 'can change a ships orientation, before placement' do
     expect(ship).to receive(:change_orientation)
     player.rotate(ship)
-  end
-
-  it 'has its home board' do
-    expect(player.home_board).to_not eq nil
   end
 
   it 'can place ships on home board' do
@@ -22,12 +26,13 @@ describe 'Player' do
     player.place(ship, origin)
   end
 
-  it 'has a target board' do
-
-    expect(player.target_board).to_not eq nil
-
-
+  it 'can shoot at enemy territory' do
+    origin = [2,:B]
+    expect(player).to receive(:shoot).with(origin)
+    player.shoot(origin)
   end
+
+
 
 
 
