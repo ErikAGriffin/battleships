@@ -6,10 +6,6 @@ class Board
     @grid = {A: {1 => :SEA, 2=> :SEA},
              B: {1 => :SEA, 2=> :SEA}}
 
-    @test_grid = {A1: :SEA, A2: :SEA,
-                  B1: :SEA, B2: :SEA}
-
-
     @x_row = [*1..2]
     @y_row = [*:A..:B]
   end
@@ -41,7 +37,6 @@ class Board
 
   def place(ship, origin)
     return if !ship_in_bounds?(ship, origin)
-
     x = origin[0]
     y = origin[1]
 
