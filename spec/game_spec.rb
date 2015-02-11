@@ -16,7 +16,7 @@ describe 'Game' do
 
   it 'can receive shots from players' do
 
-
+    FAIL
 
   end
 
