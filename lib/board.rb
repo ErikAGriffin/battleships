@@ -39,6 +39,9 @@ class Board
     end
   end
 
+  # Need to add edge case, adding ship where another
+  # Ship already resides
+
   def next_ship_cell(point)
     if @y_row.include? point
       return @y_row[@y_row.index(point)-1]

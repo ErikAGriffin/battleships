@@ -36,6 +36,11 @@ describe 'Ship' do
 
   describe 'behavior' do
 
+    it 'has a name' do
+      ship = Ship.aircraft_carrier
+      expect(ship.name).to eq 'aircraft_carrier'
+    end
+
     it 'has a size' do
       expect(ship.size).to eq 1
     end
@@ -76,6 +81,7 @@ describe 'Ship' do
       ship.size.times {ship.hit}
       expect(ship).to be_sunk
     end
+
 
 
   end

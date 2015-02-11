@@ -14,9 +14,9 @@ describe 'Game' do
     expect(game.p2_ships.count).to eq 5
   end
 
-  it 'starts by player 1 placing their ships' do
-    # Shouldn't both players place ships at the same time?
-    # What is that.. multithreading? Is our game online?
+  it 'can receive shots from players' do
+
+
 
   end
 

@@ -16,9 +16,7 @@ class Game
     submarine: Ship.submarine,
     destroyer: Ship.destroyer,
     patrol_boat: Ship.patrol_boat}
-
     ship_hash
-
   end
 
 
