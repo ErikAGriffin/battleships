@@ -5,6 +5,8 @@ class Ship
   def initialize(size = 3)
     @size = size
     @hits = 0
+    @placed = false
+    @portrait_orientation = true;
   end
 
   def hit
@@ -13,6 +15,22 @@ class Ship
 
   def sunk?
     @hits >= @size
+  end
+
+  def place
+    @placed = true
+  end
+
+  def placed?
+    @placed
+  end
+
+  def portrait?
+    @portrait_orientation
+  end
+
+  def change_orientation
+    @portrait_orientation = !@portrait_orientation if !placed?
   end
 
   # Class Methods

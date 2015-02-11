@@ -40,6 +40,27 @@ describe 'Ship' do
       expect(ship.size).to eq 3
     end
 
+    it 'knows if its been placed' do
+      ship.place
+      expect(ship).to be_placed
+    end
+
+    it 'has an orientation of portrait upon creation' do
+      expect(ship).to be_portrait
+    end
+
+    it 'can have its orientation changed' do
+      ship.change_orientation
+      expect(ship).not_to be_portrait
+    end
+
+    it 'will not change orientation after being placed' do
+      ship.change_orientation # now landscape
+      ship.place
+      ship.change_orientation # trying to make portrait again
+      expect(ship).to_not be_portrait
+    end
+
     it 'can take a hit' do
       ship.hit
       expect(ship.hits).to eq 1
