@@ -5,11 +5,11 @@ describe 'Player' do
   let(:game) {double :game}
   let(:homeboard) {double :board, place: true}
   let(:targetboard) {double :board}
-  let(:player) {Player.new(home_board: homeboard, game: game)}
+  let(:player) {Player.new(homeboard: homeboard, game: game)}
   let(:ship) {double :ship}
 
   it 'has its home board' do
-    expect(player.home_board).to eq homeboard
+    expect(player.homeboard).to eq homeboard
   end
 
   it 'can change a ships orientation, before placement' do

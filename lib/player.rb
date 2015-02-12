@@ -1,8 +1,9 @@
 class Player
 
+  attr_reader :homeboard
 
-  def initialize(home_board: "No Board", game: "No Game")
-    @home_board = home_board
+  def initialize(homeboard: "No Board", game: "No Game")
+    @homeboard = homeboard
     @game = game
   end
 
@@ -11,17 +12,11 @@ class Player
   end
 
   def place(ship, origin)
-    @home_board.place(ship, origin)
+    @homeboard.place(ship, origin)
   end
 
   def shoot(origin)
     @game.shoot(origin) if @game.turn == self
-  end
-
-  # I don't believe other classes need access to these
-  # So after testing will probably delete.
-  def home_board
-    @home_board
   end
 
 

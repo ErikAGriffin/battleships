@@ -7,8 +7,8 @@ describe 'Game' do
   let(:game) {Game.new(players: [player1,player2])}
 
   it 'initializes with 2 players' do
-    expect(game.player1).to_not eq nil
-    expect(game.player2).to_not eq nil
+    expect(game.player1).to eq player1
+    expect(game.player2).to eq player2
   end
 
   it 'knows whose turn it is' do
