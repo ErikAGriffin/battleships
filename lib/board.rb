@@ -8,6 +8,9 @@ class Board
     @grid = make_grid
   end
 
+  # Plan on refactoring entire coordinate system
+  # May make a single hash of coordinates.
+
   def make_grid
     board_hash = {}
     @y_row.each do |y|
