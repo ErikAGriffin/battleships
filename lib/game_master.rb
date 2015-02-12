@@ -1,5 +1,13 @@
 class GameMaster
 
+  # Initializes a full game of battleship
+
+  # It would nice if I could somehow get
+  # GameMaster.new
+  # to return an instance of Game
+
+  attr_reader :game
+
   def initialize
     board1 = Board.new
     board2 = Board.new
@@ -12,10 +20,6 @@ class GameMaster
     @game = Game.new(players: players, ships: ships)
   end
 
-  def get_game
-    puts "HEY!#{@game}"
-    return @game
-  end
   # Class Methods
 
   def GameMaster.make_ships

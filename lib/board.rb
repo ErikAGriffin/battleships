@@ -3,13 +3,13 @@ class Board
   attr_reader :grid
 
   def initialize
-    @x_row = [*1..10]
-    @y_row = [*:A..:J]
+
+    #grid = {A1: :SEA, A2: :SEA, ... J9: :SEA, J10: :SEA}
+
+    @x_row = [*'1'..'10']
+    @y_row = [*'A'..'J']
     @grid = make_grid
   end
-
-  # Plan on refactoring entire coordinate system
-  # May make a single hash of coordinates.
 
   def shoot(coordinate)
     if cell(coordinate).respond_to?(:sunk?)
@@ -25,20 +25,15 @@ class Board
   def make_grid
     board_hash = {}
     @y_row.each do |y|
-      board_hash.store(y,{})
       @x_row.each do |x|
-        board_hash[y].store(x,:SEA)
+        board_hash.store((y+x).to_sym,:SEA)
       end
     end
     board_hash
   end
 
   def cell(origin)
-    x = origin[0]
-    y = origin[1]
-    if self.grid[y]
-      grid[y][x]
-    end
+    grid[origin]
   end
 
   def ship_in_bounds?(ship, origin)
@@ -72,22 +67,28 @@ class Board
     end
   end
 
+  def vert_next_ship_cell(coordinate)
+
+  end
+
+  def horz_next_ship_cell(coordinate)
+
+  end
+
   def place(ship, origin)
     return false if !ship_in_bounds?(ship, origin)
-    x = origin[0]
-    y = origin[1]
 
-    @grid[y][x] = ship
+    @grid[origin] = ship
     size = ship.size - 1
     if ship.portrait?
       size.times do
-        y = next_ship_cell(y)
-        @grid[y][x] = ship
+        origin = vert_next_ship_cell(origin)
+        @grid[origin] = ship
       end # size.times do
     else
       size.times do
-        x = next_ship_cell(x)
-        @grid[y][x] = ship
+        origin = horz_next_ship_cell(origin)
+        @grid[origin] = ship
       end # size.times do
     end # if
     true # Returns true if ship was placed

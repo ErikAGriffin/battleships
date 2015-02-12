@@ -11,49 +11,55 @@ describe Board do
   # Had absolutely disasterous results
 
   it 'has a grid' do
-    expect(board.grid).to_not eq nil
+    expect(board.grid.count).to eq 100
   end
 
   it 'returns SEA when asked a coordinate' do
-    coord = [1, :A]
+    coord = :A1
     expect(board.cell(coord)).to eq :SEA
   end
 
   it "returns nil when passed an incorrect coordinate" do
-    coord = [3, :A]
+    coord = :A11
     expect(board.cell(coord)).to eq nil
-    coord = [1, :C]
+    coord = :K1
     expect(board.cell(coord)).to eq nil
   end
 
   it "a portrait ship can be placed within its grid" do
-    ship = double :ship, size: 2, portrait?: true
-    origin = [2, :B]
+    ship = double :ship, size: 5, portrait?: true
+    origin = :E1
     board.place(ship, origin)
-    expect(board.cell([2, :B])).to eq ship
-    expect(board.cell([2, :A])).to eq ship
-    expect(board.cell([1, :A])).to eq :SEA
+    expect(board.cell(:D1)).to eq ship
+    expect(board.cell(:C1)).to eq ship
+    expect(board.cell(:B1)).to eq ship
+    expect(board.cell(:A1)).to eq ship
+    expect(board.cell(:A2)).to eq :SEA
   end
 
   it 'a portrait ship will not place if its size puts it outside the bounds' do
-    ship = double :ship, size: 2, portrait?: true
-    origin = [2, :A]
+    ship = double :ship, size: 5, portrait?: true
+    origin = :D1
     board.place(ship, origin)
     expect(board.cell(origin)).to eq :SEA
   end
 
   it 'a landscape ship can be placed within its grid' do
-    ship = double :ship, size:2, portrait?: false
-    origin = [1, :A]
+    ship = double :ship, size: 5, portrait?: false
+    origin = :A6
     board.place(ship, origin)
-    expect(board.cell([1, :A])).to eq ship
-    expect(board.cell([2, :A])).to eq ship
-    expect(board.cell([1, :B])).to eq :SEA
+    expect(board.cell(:A6)).to eq ship
+    expect(board.cell(:A7)).to eq ship
+    expect(board.cell(:A8)).to eq ship
+    expect(board.cell(:A9)).to eq ship
+    expect(board.cell(:A10)).to eq ship
+    expect(board.cell(:B10)).to eq :SEA
+
   end
 
   it 'a landscape ship will not place if its size puts it outside the bounds' do
-    ship = double :ship, size: 2,  portrait?: false
-    origin = [2, :B]
+    ship = double :ship, size: 5,  portrait?: false
+    origin = :A7
     board.place(ship, origin)
     expect(board.cell(origin)).to eq :SEA
   end
@@ -61,40 +67,38 @@ describe Board do
   describe 'Mechanics' do
 
     it 'will process a shot taken, returning :MISS if miss' do
-      origin = [1, :A]
+      origin = :A1
       expect(board.shoot(origin)).to eq :MISS
       expect(board.cell(origin)).to eq :SEA
     end
 
     it 'will process a shot taken, returning :HIT if hit' do
-      origin = [1, :B]
+      origin = :E5
       board.place(ship, origin)
       expect(board.shoot(origin)).to eq :HIT
     end
 
     it 'will change a cell from ship to hit if a ship is hit' do
-      origin = [1, :B]
+      origin = :E5
       board.place(ship, origin)
       board.shoot(origin)
-      expect(board.cell([1, :A])).to eq ship
-      expect(board.cell([2, :A])).to eq :SEA
+      expect(board.cell(:D5)).to eq ship
       expect(board.cell(origin)).to eq :HIT
+      expect(board.cell(:A1)).to eq :SEA
     end
 
     it 'will process a shot taken, returning :DUPL if cell has already been hit' do
-      origin = [1, :B]
+      origin = :E5
       board.place(ship, origin)
       board.shoot(origin)
       expect(board.shoot(origin)).to eq :DUPL
     end
 
     it 'will increment hits on any ship that is hit' do
-
-      origin = [1, :B]
+      origin = :E5
       board.place(ship,origin)
       expect(ship).to receive(:hit)
       board.shoot(origin)
-
     end
 
 
