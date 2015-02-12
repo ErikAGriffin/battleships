@@ -31,18 +31,18 @@ class Game
     @active_player == @player1 ? @p2ships : @p1ships
   end
 
-  # !! ** !!
-  # This is where you left off.
-  # Checking all the opponents ships are sunk
-
   def game_over?
-    #opponent_ships.any? !sunk?
+    opponent_ships.all? &:sunk?
+  end
+
+  def declare_winner
+    "DIRECT HIT!! Cap'n you've done it!! The enemy is defeated"
   end
 
   def shoot(origin)
     shot = opponent.homeboard.shoot(origin)
     if game_over?
-      return "DIRECT HIT!! Cap'n you've done it!! The enemy is defeated"
+      return declare_winner
     else
     handle(shot)
     end

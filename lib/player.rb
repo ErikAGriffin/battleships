@@ -4,7 +4,7 @@ class Player
 
   def initialize(homeboard: "No Board", game: "No Game")
     @homeboard = homeboard
-    @game = game
+    #@game = game
   end
 
   def rotate(ship)
@@ -15,8 +15,11 @@ class Player
     @homeboard.place(ship, origin)
   end
 
+  # Does the player class have to shoot?
+  # Really its the actual player, and that will be through a UI..
+
   def shoot(origin)
-    @game.shoot(origin) if @game.turn == self
+    @game.shoot(origin) if @game.active_player == self
   end
 
 

@@ -2,6 +2,8 @@ require 'player'
 
 describe 'Player' do
 
+  # I believe I will remove all player shooting tests
+
   let(:game) {double :game}
   let(:homeboard) {double :board, place: true}
   let(:targetboard) {double :board}

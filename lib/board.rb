@@ -3,8 +3,8 @@ class Board
   attr_reader :grid
 
   def initialize
-    @x_row = [*1..2]
-    @y_row = [*:A..:B]
+    @x_row = [*1..10]
+    @y_row = [*:A..:J]
     @grid = make_grid
   end
 

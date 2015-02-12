@@ -6,6 +6,10 @@ describe Board do
   let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false, hit: nil}
 
 
+  # REDO ENTIRE COORDINATE SYSTEM!
+  # Somehow, placng aircraft carrier horizontally at C2
+  # Had absolutely disasterous results
+
   it 'has a grid' do
     expect(board.grid).to_not eq nil
   end

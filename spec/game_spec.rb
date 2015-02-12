@@ -2,7 +2,7 @@ require 'game'
 
 describe 'Game' do
 
-  let(:p1ship) {double :ship, sunk?: true}
+  let(:p1ship) {double :ship, sunk?: false}
   let(:p2ship) {double :ship, sunk?: false}
   let(:p1board) {double :board}
   let(:p2board) {double :board}
@@ -71,7 +71,7 @@ describe 'Game' do
     it 'will declare active_player the winner if all the opponents ships are sunk' do
       game.switch_active_player
       allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:HIT)
-
+      allow(p1ship).to receive(:sunk?).and_return(true)
       expect(game.shoot(origin)).to eq "DIRECT HIT!! Cap'n you've done it!! The enemy is defeated"
 
 
