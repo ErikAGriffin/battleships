@@ -1,10 +1,10 @@
-class Driver
+class GameMaster
 
 
 
   # Class Methods
 
-  def Driver.make_ships
+  def GameMaster.make_ships
     ship_hash = {
     aircraft_carrier: Ship.aircraft_carrier,
     battleship: Ship.battleship,

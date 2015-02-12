@@ -2,9 +2,10 @@ require 'player'
 
 describe 'Player' do
 
+  let(:game) {double :game}
   let(:homeboard) {double :board, place: true}
   let(:targetboard) {double :board}
-  let(:player) {Player.new(home_board: homeboard)}
+  let(:player) {Player.new(home_board: homeboard, game: game)}
   let(:ship) {double :ship}
 
   it 'has its home board' do
@@ -22,10 +23,20 @@ describe 'Player' do
     player.place(ship, origin)
   end
 
-  it 'can shoot at enemy territory' do
+  it 'can shoot at enemy territory if its the players turn' do
+    allow(game).to receive(:turn).and_return(player)
     origin = [2,:B]
-    expect(player).to receive(:shoot).with(origin)
+    expect(game).to receive(:shoot).with(origin)
     player.shoot(origin)
+  end
+
+  it "can't shoot at enemy territory if its not the players turn" do
+    player2 = double :player
+    allow(game).to receive(:turn).and_return(player2)
+    origin = [2, :B]
+    expect(game).not_to receive(:shoot).with(origin)
+    player.shoot(origin)
+
   end
 
 

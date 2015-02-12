@@ -3,6 +3,7 @@ class Player
 
   def initialize(home_board: "No Board", game: "No Game")
     @home_board = home_board
+    @game = game
   end
 
   def rotate(ship)
@@ -14,7 +15,7 @@ class Player
   end
 
   def shoot(origin)
-    game.shoot(origin)
+    @game.shoot(origin) if @game.turn == self
   end
 
   # I don't believe other classes need access to these

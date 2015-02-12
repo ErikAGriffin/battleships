@@ -11,6 +11,16 @@ class Board
   # Plan on refactoring entire coordinate system
   # May make a single hash of coordinates.
 
+  def shoot(coordinate)
+    if cell(coordinate).respond_to?(:sunk?)
+      x = coordinate.first
+      y = coordinate.last
+      @grid[y][x] = :HIT
+    else
+      cell(coordinate) == :HIT ? :DUPL : :MISS
+    end
+  end
+
   def make_grid
     board_hash = {}
     @y_row.each do |y|
@@ -22,7 +32,9 @@ class Board
     board_hash
   end
 
-  def cell(x, y)
+  def cell(origin)
+    x = origin[0]
+    y = origin[1]
     if self.grid[y]
       grid[y][x]
     end
@@ -79,7 +91,5 @@ class Board
     end # if
     true # Returns true if ship was placed
   end
-
-
 
 end

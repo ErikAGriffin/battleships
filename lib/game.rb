@@ -13,7 +13,7 @@ class Game
   end
 
   def shoot(origin)
-    opponent.home_board.hit?
+
   end
 
 end

@@ -15,7 +15,8 @@ describe 'Game' do
     expect(game.turn).to eq game.player1
   end
 
-  it 'should receive shots from the player whose turn it is' do
+  it 'should process' do
+
 
   end
 
