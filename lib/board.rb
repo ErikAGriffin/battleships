@@ -13,6 +13,7 @@ class Board
 
   def shoot(coordinate)
     if cell(coordinate).respond_to?(:sunk?)
+      cell(coordinate).hit
       x = coordinate.first
       y = coordinate.last
       @grid[y][x] = :HIT

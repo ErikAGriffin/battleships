@@ -3,7 +3,7 @@ require 'board'
 describe Board do
 
   let(:board) {Board.new}
-  let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false}
+  let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false, hit: nil}
 
 
   it 'has a grid' do
@@ -82,6 +82,15 @@ describe Board do
       board.place(ship, origin)
       board.shoot(origin)
       expect(board.shoot(origin)).to eq :DUPL
+    end
+
+    it 'will increment hits on any ship that is hit' do
+
+      origin = [1, :B]
+      board.place(ship,origin)
+      expect(ship).to receive(:hit)
+      board.shoot(origin)
+
     end
 
 
