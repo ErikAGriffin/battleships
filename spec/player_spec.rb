@@ -2,7 +2,12 @@ require 'player'
 
 describe 'Player' do
 
-  # I believe I will remove all player shooting tests
+  # Player is currently allowed to place ships that have already been placed,
+  # as well as opponents ships.
+  # The latter might not matter as I believe the GameMaster will be offering
+  # the ships to each player to place, rather than the player accessing
+  # them directly.
+
 
   let(:homeboard) {double :board, place: true}
   let(:player) {Player.new(homeboard: homeboard)}
