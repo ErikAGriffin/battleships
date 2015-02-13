@@ -14,9 +14,7 @@ class Board
   def shoot(coordinate)
     if cell(coordinate).respond_to?(:sunk?)
       cell(coordinate).hit
-      x = coordinate.first
-      y = coordinate.last
-      @grid[y][x] = :HIT
+      @grid[coordinate] = :HIT
     else
       cell(coordinate) == :HIT ? :DUPL : :MISS
     end
@@ -44,39 +42,56 @@ class Board
     end
   end
 
+  def vert_next_ship_cell(coordinate)
+    coordinate = coordinate.to_s.chars
+    (@y_row[(@y_row.index coordinate.first) -1]+coordinate.last).to_sym
+  end
+
+  def horz_next_ship_cell(coordinate)
+    coordinate = coordinate.to_s.chars
+    y = coordinate.shift
+    x = coordinate.join.next
+    (y+x).to_sym
+  end
+
   def portrait_ship_in_bounds?(ship,origin)
-      y = origin[1]
+      y = origin.to_s.chars.first
       @y_row.index(y) + 1 >= ship.size
   end
 
   def landscape_ship_in_bounds?(ship,origin)
-      x = origin[0]
+      x = origin.to_s.chars.last
       @x_row.index(@x_row.last) - @x_row.index(x) + 1 >= ship.size
   end
 
-  # !! ** !!
-  # Need to add edge case, adding ship where another
-  # Ship already resides
-
-  def next_ship_cell(point)
-    if @y_row.include? point
-      return @y_row[@y_row.index(point)-1]
+  def portrait_ship_clash?(ship,origin)
+    ship.size.times do
+      return false if cell(origin) != :SEA
+      origin = vert_next_ship_cell(origin)
     end
-    if @x_row.include? point
-      return @x_row[@x_row.index(point)-1]
-    end
+    true
   end
 
-  def vert_next_ship_cell(coordinate)
-
+  def landscape_ship_clash?(ship,origin)
+    ship.size.times do
+      return false if cell(origin) != :SEA
+      origin = horz_next_ship_cell(origin)
+    end
+    true
   end
 
-  def horz_next_ship_cell(coordinate)
-
+  def legal_placement?(ship,origin)
+    if ship.portrait?
+      return false if !portrait_ship_in_bounds?(ship, origin)
+      return portrait_ship_clash?(ship,origin)
+    else
+      return false if !landscape_ship_in_bounds?(ship, origin)
+      return landscape_ship_clash?(ship,origin)
+    end
   end
 
   def place(ship, origin)
-    return false if !ship_in_bounds?(ship, origin)
+    return false if !legal_placement?(ship, origin)
 
     @grid[origin] = ship
     size = ship.size - 1
