@@ -4,10 +4,8 @@ describe 'Player' do
 
   # I believe I will remove all player shooting tests
 
-  let(:game) {double :game}
   let(:homeboard) {double :board, place: true}
-  let(:targetboard) {double :board}
-  let(:player) {Player.new(homeboard: homeboard, game: game)}
+  let(:player) {Player.new(homeboard: homeboard)}
   let(:ship) {double :ship}
 
   it 'has its home board' do
@@ -24,23 +22,6 @@ describe 'Player' do
     expect(homeboard).to receive(:place).with(ship, origin).and_return(true)
     player.place(ship, origin)
   end
-
-  it 'can shoot at enemy territory if its the players turn' do
-    allow(game).to receive(:turn).and_return(player)
-    origin = [2,:B]
-    expect(game).to receive(:shoot).with(origin)
-    player.shoot(origin)
-  end
-
-  it "can't shoot at enemy territory if its not the players turn" do
-    player2 = double :player
-    allow(game).to receive(:turn).and_return(player2)
-    origin = [2, :B]
-    expect(game).not_to receive(:shoot).with(origin)
-    player.shoot(origin)
-
-  end
-
 
 
 
