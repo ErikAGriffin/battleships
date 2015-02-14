@@ -44,7 +44,9 @@ class Board
 
   def vert_next_ship_cell(coordinate)
     coordinate = coordinate.to_s.chars
-    (@y_row[(@y_row.index coordinate.first) -1]+coordinate.last).to_sym
+    y = coordinate.shift
+    x = coordinate.join
+    (@y_row[(@y_row.index y) -1]+x).to_sym
   end
 
   def horz_next_ship_cell(coordinate)
@@ -60,7 +62,9 @@ class Board
   end
 
   def landscape_ship_in_bounds?(ship,origin)
-      x = origin.to_s.chars.last
+      origin = origin.to_s.chars
+      origin.shift
+      x = origin.join
       @x_row.index(@x_row.last) - @x_row.index(x) + 1 >= ship.size
   end
 
@@ -91,7 +95,9 @@ class Board
   end
 
   def place(ship, origin)
+    return false if ship.placed?
     return false if !legal_placement?(ship, origin)
+    ship.place
 
     @grid[origin] = ship
     size = ship.size - 1
