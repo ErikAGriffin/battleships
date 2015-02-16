@@ -3,7 +3,7 @@ require 'board'
 describe Board do
 
   let(:board) {Board.new}
-  let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false, hit: nil}
+  let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false, hit: nil, placed?: false, place: nil}
 
   # Some ships are not being placed, even though they should be allowed to.
   # Example: portrait patrolboat at :J10
@@ -26,7 +26,7 @@ describe Board do
   end
 
   it "a portrait ship can be placed within its grid" do
-    ship = double :ship, size: 5, portrait?: true
+    ship = double :ship, size: 5, portrait?: true, placed?: false, place: nil
     origin = :E1
     board.place(ship, origin)
     expect(board.cell(:D1)).to eq ship
@@ -37,14 +37,14 @@ describe Board do
   end
 
   it 'a portrait ship will not place if its size puts it outside the bounds' do
-    ship = double :ship, size: 5, portrait?: true
+    ship = double :ship, size: 5, portrait?: true, placed?: false, place: nil
     origin = :D1
     board.place(ship, origin)
     expect(board.cell(origin)).to eq :SEA
   end
 
   it 'a landscape ship can be placed within its grid' do
-    ship = double :ship, size: 5, portrait?: false
+    ship = double :ship, size: 5, portrait?: false, placed?: false, place: nil
     origin = :A6
     board.place(ship, origin)
     expect(board.cell(:A6)).to eq ship
@@ -57,7 +57,7 @@ describe Board do
   end
 
   it 'a landscape ship will not place if its size puts it outside the bounds' do
-    ship = double :ship, size: 5,  portrait?: false
+    ship = double :ship, size: 5,  portrait?: false, placed?: false, place: nil
     origin = :A7
     board.place(ship, origin)
     expect(board.cell(origin)).to eq :SEA

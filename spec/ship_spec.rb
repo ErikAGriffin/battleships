@@ -34,11 +34,11 @@ describe 'Ship' do
 
   end
 
-  describe 'behavior' do
+  describe "behavior\n" do
 
     it 'has a name' do
       ship = Ship.aircraft_carrier
-      expect(ship.name).to eq 'aircraft_carrier'
+      expect(ship.name).to eq 'Aircraft Carrier'
     end
 
     it 'has a size' do
