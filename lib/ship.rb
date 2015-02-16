@@ -37,23 +37,23 @@ class Ship
   # Class Methods
 
   def Ship.aircraft_carrier
-    new 5, 'aircraft_carrier'
+    new 5, 'Aircraft Carrier'
   end
 
   def Ship.battleship
-    new 4, 'battleship'
+    new 4, 'Battleship'
   end
 
   def Ship.submarine
-    new 3, 'submarine'
+    new 3, 'Submarine'
   end
 
   def Ship.destroyer
-    new 3, 'destroyer'
+    new 3, 'Destroyer'
   end
 
   def Ship.patrol_boat
-    new 2, 'patrol_boat'
+    new 2, 'Patrol Boat'
   end
 
 
