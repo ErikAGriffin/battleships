@@ -10,6 +10,8 @@ class Game
     @active_player = player1
   end
 
+  # Unsure if the game class needs ships at all, or if they can just be
+  # created by the server.
   # Unsure if other classes need this access, will delete if not
   def p1ships
     @p1ships
@@ -18,6 +20,19 @@ class Game
   def p2ships
     @p2ships
   end
+
+  def shoot(origin)
+    shot = opponent.homeboard.shoot(origin)
+    if game_over?
+      return declare_winner
+    else
+    handle(shot)
+    end
+  end
+
+  # # # # # # # # # # # # # #
+
+  private
 
   def switch_active_player
     @active_player = opponent
@@ -39,15 +54,6 @@ class Game
     "DIRECT HIT!! Cap'n you've done it!! The enemy is defeated"
   end
 
-  def shoot(origin)
-    shot = opponent.homeboard.shoot(origin)
-    if game_over?
-      return declare_winner
-    else
-    handle(shot)
-    end
-  end
-
   def handle(shot)
     case shot
       when :HIT
@@ -60,8 +66,5 @@ class Game
       "Something has gone, terribly, terribly wrong"
     end
   end
-
-
-
 
 end

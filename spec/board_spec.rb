@@ -21,7 +21,7 @@ describe Board do
     expect(board.cell(coord)).to eq nil
   end
 
-  it "a portrait ship can be placed within its grid" do
+  it "a vertical ship can be placed within its grid" do
     ship = double :ship, size: 5,  orientation: :vertical, placed?: false, place: nil
     origin = :E1
     board.place(ship, origin)
@@ -32,14 +32,14 @@ describe Board do
     expect(board.cell(:A2)).to eq :SEA
   end
 
-  it 'a portrait ship will not place if its size puts it outside the bounds' do
+  it 'a vertical ship will not place if its size puts it outside the bounds' do
     ship = double :ship, size: 5,  orientation: :vertical, placed?: false, place: nil
     origin = :D1
     board.place(ship, origin)
     expect(board.cell(origin)).to eq :SEA
   end
 
-  it 'a landscape ship can be placed within its grid' do
+  it 'a horizontal ship can be placed within its grid' do
     ship = double :ship, size: 5,  orientation: :horizontal, placed?: false, place: nil
     origin = :A6
     board.place(ship, origin)
@@ -52,7 +52,7 @@ describe Board do
 
   end
 
-  it 'a landscape ship will not place if its size puts it outside the bounds' do
+  it 'a horizontal ship will not place if its size puts it outside the bounds' do
     ship = double :ship, size: 5,  orientation: :horizontal, placed?: false, place: nil
     origin = :A7
     board.place(ship, origin)

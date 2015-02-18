@@ -11,12 +11,15 @@ class Board
     @grid = make_grid
   end
 
+  # !! ** !!
+  # TODO
+  # Going to have to start changing misses to :MISS tiles
+
   def shoot(coordinate)
     if cell(coordinate).respond_to?(:sunk?)
       cell(coordinate).hit
       @grid[coordinate] = :HIT
     else
-      # Must change misses to miss.
       cell(coordinate) == :HIT ? :DUPL : :MISS
     end
   end
@@ -27,30 +30,28 @@ class Board
 
   def place_vertical(ship, origin)
     ship.size.times do
-      @grid[origin]
+      @grid[origin] = ship
+      origin = vert_next_ship_cell(origin)
+      puts "Ze origin is now #{origin}"
+    end
+  end
+
+  def place_horizontal(ship, origin)
+    ship.size.times do
+      @grid[origin] = ship
+      origin = horz_next_ship_cell(origin)
+      puts "Ze origin is now #{origin}"
     end
   end
 
   def place(ship, origin)
-    return false if ship.placed?
     return false if !legal_placement?(ship, origin)
     ship.place
-
-    @grid[origin] = ship
-    size = ship.size - 1
     if ship.orientation == :vertical
-      size.times do
-        origin = vert_next_ship_cell(origin)
-        @grid[origin] = ship
-      end # size.times do
+      place_vertical(ship,origin)
     else
-      size.times do
-        origin = horz_next_ship_cell(origin)
-        @grid[origin] = ship
-      end # size.times do
-    end # if
-
-    # Returns true if ship was placed
+      place_horizontal(ship,origin)
+    end
     true
   end
 
@@ -119,6 +120,7 @@ class Board
   end
 
   def legal_placement?(ship,origin)
+    return false if ship.placed?
     if ship.orientation == :vertical
       return false if !portrait_ship_in_bounds?(ship, origin)
       return portrait_ship_clash?(ship,origin)
