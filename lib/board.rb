@@ -17,11 +17,46 @@ class Board
       @grid[coordinate] = :HIT
     else
       # Must change misses to miss.
-
       cell(coordinate) == :HIT ? :DUPL : :MISS
-
     end
   end
+
+  def cell(origin)
+    grid[origin]
+  end
+
+  def place_vertical(ship, origin)
+    ship.size.times do
+      @grid[origin]
+    end
+  end
+
+  def place(ship, origin)
+    return false if ship.placed?
+    return false if !legal_placement?(ship, origin)
+    ship.place
+
+    @grid[origin] = ship
+    size = ship.size - 1
+    if ship.orientation == :vertical
+      size.times do
+        origin = vert_next_ship_cell(origin)
+        @grid[origin] = ship
+      end # size.times do
+    else
+      size.times do
+        origin = horz_next_ship_cell(origin)
+        @grid[origin] = ship
+      end # size.times do
+    end # if
+
+    # Returns true if ship was placed
+    true
+  end
+
+  # # # # # # # # # #
+
+  private
 
   def make_grid
     board_hash = {}
@@ -31,18 +66,6 @@ class Board
       end
     end
     board_hash
-  end
-
-  def cell(origin)
-    grid[origin]
-  end
-
-  def ship_in_bounds?(ship, origin)
-    if ship.portrait?
-      portrait_ship_in_bounds?(ship,origin)
-    else
-       landscape_ship_in_bounds?(ship,origin)
-    end
   end
 
   def vert_next_ship_cell(coordinate)
@@ -57,6 +80,14 @@ class Board
     y = coordinate.shift
     x = coordinate.join.next
     (y+x).to_sym
+  end
+
+  def ship_in_bounds?(ship, origin)
+    if ship.orientation == :vertical
+      portrait_ship_in_bounds?(ship,origin)
+    else
+       landscape_ship_in_bounds?(ship,origin)
+    end
   end
 
   def portrait_ship_in_bounds?(ship,origin)
@@ -88,34 +119,13 @@ class Board
   end
 
   def legal_placement?(ship,origin)
-    if ship.portrait?
+    if ship.orientation == :vertical
       return false if !portrait_ship_in_bounds?(ship, origin)
       return portrait_ship_clash?(ship,origin)
     else
       return false if !landscape_ship_in_bounds?(ship, origin)
       return landscape_ship_clash?(ship,origin)
     end
-  end
-
-  def place(ship, origin)
-    return false if ship.placed?
-    return false if !legal_placement?(ship, origin)
-    ship.place
-
-    @grid[origin] = ship
-    size = ship.size - 1
-    if ship.portrait?
-      size.times do
-        origin = vert_next_ship_cell(origin)
-        @grid[origin] = ship
-      end # size.times do
-    else
-      size.times do
-        origin = horz_next_ship_cell(origin)
-        @grid[origin] = ship
-      end # size.times do
-    end # if
-    true # Returns true if ship was placed
   end
 
 end

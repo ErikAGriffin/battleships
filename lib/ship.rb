@@ -1,12 +1,12 @@
 class Ship
 
-  attr_reader :size, :hits, :name
+  attr_reader :size, :hits, :name, :orientation
 
   def initialize(size = 1, name = 'dinghy')
     @size = size
     @hits = 0
     @placed = false
-    @portrait_orientation = true;
+    @orientation = :vertical
     @name = name
   end
 
@@ -31,7 +31,7 @@ class Ship
   end
 
   def change_orientation
-    @portrait_orientation = !@portrait_orientation if !placed?
+    @orientation == :vertical ? @orientation = :horizontal : @orientation = :vertical if !placed?
   end
 
   # Class Methods
