@@ -22,30 +22,29 @@ describe 'Game' do
   end
 
   it 'can switch active_player' do
-    game.switch_active_player
+    game.send(:switch_active_player)
     expect(game.active_player).to eq player2
   end
 
-  describe 'Handling Shots' do
+  describe 'Handling Shots:' do
 
     it 'can send a shot to opponents board' do
-      game.switch_active_player
-      expect(game.opponent.homeboard).to receive(:shoot).with(origin)
+      expect(p2board).to receive(:shoot).with(origin)
       game.shoot(origin)
     end
 
     it "returns 'Cap'n! We missed!!' if the shot returns a :MISS" do
-      allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:MISS)
+      allow(p2board).to receive(:shoot).with(origin).and_return(:MISS)
       expect(game.shoot(origin)).to eq "Cap'n! We missed!!"
     end
 
     it "returns 'DIRECT HIT!! Well done sir!' if the shot returns a :HIT" do
-      allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:HIT)
+      allow(p2board).to receive(:shoot).with(origin).and_return(:HIT)
       expect(game.shoot(origin)).to eq "DIRECT HIT!! Well done sir!"
     end
 
     it "returns 'Blast we wasted that shot. You've already fired on that location!' if the shot returns :DUPL" do
-      allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:DUPL)
+      allow(p2board).to receive(:shoot).with(origin).and_return(:DUPL)
       expect(game.shoot(origin)).to eq "Blast we wasted that shot. You've already fired on that location!"
     end
 
@@ -63,7 +62,7 @@ describe 'Game' do
   describe 'Rules' do
 
     it 'checks for a winner after each shot' do
-      allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:HIT)
+      allow(p2board).to receive(:shoot).with(origin).and_return(:HIT)
       expect(game).to receive(:game_over?)
       game.shoot(origin)
     end
@@ -71,13 +70,9 @@ describe 'Game' do
     it 'will declare active_player the winner if all the opponents ships are sunk' do
       # This test is faulty.  Ships hash can't actually receive sunk?
 
-      game.switch_active_player
-      allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:HIT)
-      allow(p1ship).to receive(:sunk?).and_return(true)
+      allow(p2board).to receive(:shoot).with(origin).and_return(:HIT)
+      allow(p2ship).to receive(:sunk?).and_return(true)
       expect(game.shoot(origin)).to eq "DIRECT HIT!! Cap'n you've done it!! The enemy is defeated"
-
-
-
     end
 
   end
