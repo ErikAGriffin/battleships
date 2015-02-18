@@ -14,7 +14,7 @@ game.p1ships.each_key do |ship_key|
   ship = game.p1ships[ship_key]
   while !ship.placed?
     puts "Where do you want to place your #{ship.name}?"
-    coord = gets.chomp.to_sym
+    coord = gets.chomp.upcase.to_sym
     if coord.downcase == :rotate
       player1.rotate(ship)
       puts ship.portrait? ? "Ship is now vertical" : "Ship is now horizontal"
@@ -29,13 +29,11 @@ end
 
 puts "Player2 place ships"
 puts "(To rotate a ship type 'rotate'"
-puts "(To rotate a ship type 'rotate'"
-game.p2ships.each_key do |ship_key|
+game.p2ships.each_value do |ship|
 
-  ship = game.p2ships[ship_key]
   while !ship.placed?
     puts "Where do you want to place your #{ship.name}?"
-    coord = gets.chomp.to_sym
+    coord = gets.chomp.upcase.to_sym
     if coord.downcase == :rotate
       player2.rotate(ship)
       puts ship.portrait? ? "Ship is now vertical" : "Ship is now horizontal"
@@ -50,12 +48,19 @@ end
 
 ## Ships are placed
 
-#while !game.game_over?
-#
-#  player = game.active_player
-#
-#  puts "Awaiting your orders captain."
-#  puts "(Where do you want to shoot?)"
-#
-#  coord = gets.chomp.to_sym
-#  end
+while !game.game_over?
+
+  puts "#{game.active_player}'s turn"
+
+  player = game.active_player
+
+  puts "Awaiting your orders captain."
+  puts "(Where do you want to shoot?)"
+
+  coord = gets.upcase.chomp.to_sym
+
+  puts game.shoot(coord)
+
+  game.switch_active_player
+
+end

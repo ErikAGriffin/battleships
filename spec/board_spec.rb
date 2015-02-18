@@ -5,10 +5,6 @@ describe Board do
   let(:board) {Board.new}
   let(:ship) {double :ship, size: 2, portrait?: true, sunk?: false, hit: nil, placed?: false, place: nil}
 
-  # Some ships are not being placed, even though they should be allowed to.
-  # Example: portrait patrolboat at :J10
-  # Needs to be investigated
-
   it 'has a grid' do
     expect(board.grid.count).to eq 100
   end

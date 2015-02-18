@@ -2,7 +2,7 @@ class Game
 
   attr_reader :player1, :player2, :active_player
 
-  def initialize(players: ["Player1","Player2"], ships: ["[P1 Ships]","[P2 Ships]"])
+  def initialize(players: ["Player1","Player2"], ships: ["{P1 Ships}","[P2 Ships]"])
     @player1 = players.first
     @player2 = players.last
     @p1ships = ships.first
@@ -32,7 +32,7 @@ class Game
   end
 
   def game_over?
-    opponent_ships.all? &:sunk?
+    opponent_ships.values.all? &:sunk?
   end
 
   def declare_winner
@@ -60,5 +60,8 @@ class Game
       "Something has gone, terribly, terribly wrong"
     end
   end
+
+
+
 
 end

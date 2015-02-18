@@ -8,7 +8,7 @@ describe 'Game' do
   let(:p2board) {double :board}
   let(:player1) {double :player, homeboard: p1board}
   let(:player2) {double :player, homeboard: p2board}
-  let(:game) {Game.new(players: [player1,player2], ships:[[p1ship],[p2ship]])}
+  let(:game) {Game.new(players: [player1,player2], ships:[{ship1: p1ship},{ship2: p2ship}])}
 
   let(:origin) {[1,:B]}
 
@@ -54,8 +54,8 @@ describe 'Game' do
   describe 'Handling Ships' do
 
     it 'has ships for each player' do
-      expect(game.p1ships).to eq [p1ship]
-      expect(game.p2ships).to eq [p2ship]
+      expect(game.p1ships).to eq({ship1: p1ship})
+      expect(game.p2ships).to eq({ship2: p2ship})
     end
 
   end
@@ -69,6 +69,8 @@ describe 'Game' do
     end
 
     it 'will declare active_player the winner if all the opponents ships are sunk' do
+      # This test is faulty.  Ships hash can't actually receive sunk?
+
       game.switch_active_player
       allow(game.opponent.homeboard).to receive(:shoot).with(origin).and_return(:HIT)
       allow(p1ship).to receive(:sunk?).and_return(true)

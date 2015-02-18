@@ -16,7 +16,10 @@ class Board
       cell(coordinate).hit
       @grid[coordinate] = :HIT
     else
+      # Must change misses to miss.
+
       cell(coordinate) == :HIT ? :DUPL : :MISS
+
     end
   end
 
