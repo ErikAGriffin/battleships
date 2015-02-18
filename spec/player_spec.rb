@@ -2,9 +2,8 @@ require 'player'
 
 describe 'Player' do
 
-  # Player is currently allowed to place ships that have already been placed,
-  # as well as opponents ships.
-  # The latter might not matter as I believe the GameMaster will be offering
+  # Player is currently allowed to place opponents ships.
+  # This might not matter as I believe the GameMaster will be offering
   # the ships to each player to place, rather than the player accessing
   # them directly.
 
